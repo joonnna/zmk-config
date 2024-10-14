@@ -270,18 +270,16 @@ ZMK_MOD_MORPH(smart_shft,
    &none   &none   &none  &kp TAB  &kp RET          &kp SPACE   &sl 1   &none   &none   &sl 2    &smart_shft          &kp BSPC  &sl 5    &none      &none       &none
             >;
         };
-
         layer_Symbols {
             bindings = <
   &none     &none      &none      &none     &none                                                                        &none     &none      &none      &none   &none
   &none     &none      &none      &none     &none   &none                                                     &none      &none     &none      &none      &none   &none
-  &none     &none      &kp GRAVE  &kp FSLH  &kp DQT   &none                                                     &none   &kp AMPS   &kp SQT  &kp TILDE      &none   &none
+  &none     &none      &kp GRAVE  &kp PLUS  &kp DQT &none                                                     &none      &kp AMPS  &kp SQT    &kp TILDE  &none   &none
   &none  &kp CARET  &kp LBKT     &kp LBRC   &kp LPAR  &kp AT                                                  &kp PIPE  &kp RPAR   &kp RBRC   &kp RBKT  &kp DLLR   &none
-  &none     &kp PLUS   &kp BSLH  &kp STAR  &kp QMARK   &none   &none   &none   &none   &none   &none   &none     &none  &kp EQUAL  &kp EXCL   &kp HASH  &kp PRCNT   &none
+  &none     &none   &kp BSLH  &kp STAR  &kp QMARK   &kp FSLH   &none   &none   &none   &none   &none   &none     &kp PRCNT  &kp EQUAL  &kp EXCL   &kp HASH  &none   &none
   &none     &none      &none     &trans    &trans           &none   &none   &none   &none   &mo 4   &mo 3               &trans    &trans      &none      &none   &none
             >;
         };
-
         layer_Numbers {
             bindings = <
   &none      &none     &none      &none     &none                                                                        &none     &none     &none      &none   &none
