@@ -207,7 +207,23 @@ POS_LH_C6R5 46 \
 POS_LH_C6R6 64 \
 
 
+
 #define QUICK_TAP_MS 175
+
+
+#define COMBO_TERM_FAST 18
+#define COMBO_TERM_SLOW 30
+
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 50
+
+ZMK_COMBO(lpar,   &kp LPAR,      POS_LH_C2R3 POS_LH_C3R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(lbrc,   &kp LBRC,      POS_LH_C3R3 POS_LH_C4R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(lbkt,   &kp LBKT,      POS_LH_C2R5 POS_LH_C3R5,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+
+ZMK_COMBO(rpar,   &kp RPAR,      POS_RH_C2R3 POS_RH_C3R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(rbrc,   &kp RBRC,      POS_RH_C3R3 POS_RH_C4R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(rbkt,   &kp RBKT,      POS_RH_C2R5 POS_RH_C3R5,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
 
 
 #define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
@@ -272,12 +288,12 @@ ZMK_MOD_MORPH(smart_shft,
         };
         layer_Symbols {
             bindings = <
-  &none     &none      &none      &none     &none                                                                        &none     &none      &none      &none   &none
-  &none     &none      &none      &none     &none   &none                                                     &none      &none     &none      &none      &none   &none
-  &none     &none      &kp GRAVE  &kp PLUS  &kp DQT &none                                                     &none      &kp AMPS  &kp SQT    &kp TILDE  &none   &none
-  &none  &kp CARET  &kp LBKT     &kp LBRC   &kp LPAR  &kp AT                                                  &kp PIPE  &kp RPAR   &kp RBRC   &kp RBKT  &kp DLLR   &none
-  &none     &none   &kp BSLH  &kp STAR  &kp QMARK   &kp FSLH   &none   &none   &none   &none   &none   &none     &kp PRCNT  &kp EQUAL  &kp EXCL   &kp HASH  &none   &none
-  &none     &none      &none     &trans    &trans           &none   &none   &none   &none   &mo 4   &mo 3               &trans    &trans      &none      &none   &none
+  &none     &none      &none      &none     &none                                                                         &none     &none      &none      &none   &none
+  &none     &none      &none      &none     &none      &none                                                   &none      &none     &none      &none      &none   &none
+  &none     &none      &kp GRAVE  &kp PLUS  &kp HASH   &none                                                    &none     &kp AMPS  &kp SQT    &kp TILDE  &none   &none
+  &none  &kp CARET     &kp STAR   &kp DQT   &kp QMARK  &kp AT                                                  &kp PIPE   &kp EQUAL &kp EXCL   &kp HASH   &kp DLLR   &none
+  &none     &none      &none      &none   &kp BSLH   &none   &none   &none   &none   &none   &none   &none     &kp PRCNT  &kp FSLH  &none      &none      &none   &none
+  &none     &none      &none      &trans    &trans           &none   &none   &none   &none   &mo 4   &mo 3                &trans    &trans     &none      &none   &none
             >;
         };
         layer_Numbers {
