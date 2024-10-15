@@ -217,14 +217,17 @@ POS_LH_C6R6 64 \
 #define COMBO_IDLE_FAST 150
 #define COMBO_IDLE_SLOW 50
 
-ZMK_COMBO(lpar,   &kp LPAR,      POS_LH_C2R3 POS_LH_C3R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
-ZMK_COMBO(lbrc,   &kp LBRC,      POS_LH_C3R3 POS_LH_C4R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
-ZMK_COMBO(lbkt,   &kp LBKT,      POS_LH_C2R5 POS_LH_C3R5,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(lpar,   &lpar_lt,      POS_LH_C2R4 POS_LH_C3R4,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(lt,     &kp LT,        POS_LH_C2R4 POS_LH_C3R4,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
 
-ZMK_COMBO(rpar,   &kp RPAR,      POS_RH_C2R3 POS_RH_C3R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
-ZMK_COMBO(rbrc,   &kp RBRC,      POS_RH_C3R3 POS_RH_C4R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
-ZMK_COMBO(rbkt,   &kp RBKT,      POS_RH_C2R5 POS_RH_C3R5,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(lbrc,   &kp LBRC,      POS_LH_C3R4 POS_LH_C4R4,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(lbkt,   &kp LBKT,      POS_LH_C2R3 POS_LH_C3R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
 
+ZMK_COMBO(rpar,   &rpar_gt,      POS_RH_C2R4 POS_RH_C3R4,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(gt,     &kp GT,      POS_RH_C2R4 POS_RH_C3R4,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+
+ZMK_COMBO(rbrc,   &kp RBRC,      POS_RH_C3R4 POS_RH_C4R4,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
+ZMK_COMBO(rbkt,   &kp RBKT,      POS_RH_C2R3 POS_RH_C3R3,     LAYER_Base LAYER_Symbols LAYER_Numbers, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
 
 #define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
     ZMK_HOLD_TAP(NAME, \
@@ -244,33 +247,53 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L)  // right-hand HRMs
     quick-release;             // no double capitalization when rolling keys
 };
 
+
+&lt {  // layer-tap config
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+
+// reuse basic mod-morph scheme
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2) \
+    ZMK_MOD_MORPH(NAME, \
+        mods = <(MOD_L ## MOD|MOD_R ## MOD)>; \
+        bindings = <BINDING1>, <BINDING2>; \
+    )
+
+
+// tap: space | shift + tap: dot -> space -> sticky shift | hold: activate layer
+ZMK_HOLD_TAP(lt_spc,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&spc_morph>;
+)
+SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &kp TAB)
+
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
 ZMK_MOD_MORPH(smart_shft,
     bindings = <&sk LSHFT>, <&caps_word>;
     mods = <(MOD_LSFT)>;
 )
 
+// tap: left/right parenthesis | shft + tap: less-than/greater-than
+SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
+SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
 
-/*/* Automatically generated macro definitions */
-/*/ {*/
-/*    macros {*/
-/**/
-/*    /*};*/
-/*};*/
-/**/
+// tap: dot | shift + tap: colon
+SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &kp COLON)
 
+// tap: comma | shift + tap: semicolon
+SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &kp SEMI)
 
+// tap: underscore | shift + tap: minus
+SIMPLE_MORPH(under_morph, SFT, &kp UNDERSCORE, &kp MINUS)
 
-/ {
-    combos {
-        compatible = "zmk,combos";
+// tap: double quote | shift + tap: single quote
+SIMPLE_MORPH(fnut_morph, SFT, &kp DQT, &kp SQT)
 
-        combo_ctrl {
-            key-positions = <69 74>;
-            bindings = <&sk LCTRL>;
-        };
-    };
-};
 
 /* Automatically generated keymap */
 / {
@@ -278,21 +301,21 @@ ZMK_MOD_MORPH(smart_shft,
         compatible = "zmk,keymap";
         layer_Base {
             bindings = <
-   &none   &none   &none    &none    &none                                                                            &none      &none    &none      &none       &none
-   &none   &none   &none    &none    &none   &none                                                          &none     &none      &none    &none      &none       &none
-   &none   &kp Q   &kp W    &kp F    &kp P   &kp B                                                          &kp J     &kp L      &kp U    &kp Y   &kp SEMI       &none
- &kp ESC   &kp A   &kp R    &hml LALT S &hml LCTRL T   &kp G                                                          &kp M      &hmr LCTRL N      &hmr LALT E    &kp I      &kp O  &none
-   &none   &kp Z   &kp X    &kp C    &kp D   &kp V     &none    &none   &none   &none   &none       &none   &kp K     &kp H  &kp COMMA  &kp DOT  &kp MINUS       &none
-   &none   &none   &none  &kp TAB  &kp RET          &kp SPACE   &sl 1   &none   &none   &sl 2    &smart_shft          &kp BSPC  &sl 5    &none      &none       &none
+   &none   &none   &none    &none       &none                                                                       &none     &none      &none        &none       &none
+   &none   &none   &none    &none       &none          &none                                                        &none     &none      &none        &none       &none        &none
+   &none   &kp Q   &kp W    &kp F       &kp P          &kp B                                                        &kp J     &kp L      &kp U        &kp Y       &fnut_morph  &none
+   &kp ESC &kp A   &kp R    &hml LALT S &hml LCTRL T   &kp G                                                        &kp M     &hmr LCTRL N            &hmr LALT E &kp I        &kp O  &none
+   &none   &kp Z   &kp X    &kp C       &kp D          &kp V     &none       &none   &none   &none   &none  &none   &kp K     &kp H      &comma_morph &dot_morph  &under_morph &none
+   &none   &none   &none    &none       &kp RET                  &lt_spc 3 0  &sl 1   &none   &none   &sl 2  &smart_shft      &kp BSPC   &sl 5        &none       &none        &none
             >;
         };
         layer_Symbols {
             bindings = <
   &none     &none      &none      &none     &none                                                                         &none     &none      &none      &none   &none
   &none     &none      &none      &none     &none      &none                                                   &none      &none     &none      &none      &none   &none
-  &none     &none      &kp GRAVE  &kp PLUS  &kp HASH   &none                                                    &none     &kp AMPS  &kp SQT    &kp TILDE  &none   &none
-  &none  &kp CARET     &kp STAR   &kp DQT   &kp QMARK  &kp AT                                                  &kp PIPE   &kp EQUAL &kp EXCL   &kp HASH   &kp DLLR   &none
-  &none     &none      &none      &none   &kp BSLH   &none   &none   &none   &none   &none   &none   &none     &kp PRCNT  &kp FSLH  &none      &none      &none   &none
+  &none     &none      &none      &kp GRAVE &kp PLUS   &none                                                   &none      &kp AMPS  &kp TILDE  &none      &none   &none
+  &none  &kp CARET     &kp STAR   &kp HASH  &kp QMARK  &kp AT                                                  &kp PIPE   &kp EQUAL &kp EXCL   &kp FSLH   &kp DLLR   &none
+  &none     &none      &none      &none     &kp BSLH   &none   &none   &none   &none   &none   &none   &none   &none      &kp PRCNT    &none      &none      &none   &none
   &none     &none      &none      &trans    &trans           &none   &none   &none   &none   &mo 4   &mo 3                &trans    &trans     &none      &none   &none
             >;
         };
