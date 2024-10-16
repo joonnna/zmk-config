@@ -4,6 +4,7 @@
 .west
 modules
 firmware
+zmk-auto-layer
 zmk
 # Ignore keymap-drawer output for now
 draw/base.svg
