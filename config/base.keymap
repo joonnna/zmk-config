@@ -269,10 +269,17 @@ ZMK_MACRO(spc_macro,
     bindings = <&kp K_CANCEL &sl LAYER_Move>;
 )
 
-// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
-ZMK_MOD_MORPH(smart_shft,
-    bindings = <&sk LSHFT>, <&caps_word>;
-    mods = <(MOD_LSFT)>;
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: move layer
+#define SMART_SHIFT &smart_shft LAYER_Move 0
+ZMK_HOLD_TAP(smart_shft,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&shft_dance>;
+)
+ZMK_TAP_DANCE(shft_dance,
+    tapping-term-ms = <200>;
+    bindings = <&sk LSHFT>, <&caps_word>;  // reverse this for sticky-num on single tap
 )
 
 // tap: num-word | double-tap: sticky num-layer | hold: num-layer
@@ -307,11 +314,11 @@ SIMPLE_MORPH(fnut_morph, SFT, &kp DQT, &kp SQT)
         layer_Base {
             bindings = <
    &none   &none   &none    &none       &none                                                                       &none     &none      &none        &none       &none
-   &none   &none   &none    &none       &none          &none                                                        &none     &none      &none        &none       &none        &none
+   &none   &none   &none    &none       &kp DELETE          &none                                                        &none     &none      &none        &none       &none        &none
    &none   &kp Q   &kp W    &kp F       &kp P          &kp B                                                        &kp J     &kp L      &kp U        &kp Y       &fnut_morph  &none
    &kp ESC &kp A   &kp R    &hml LALT S &hml LCTRL T   &kp G                                                        &kp M     &hmr LCTRL N            &hmr LALT E &kp I        &kp O  &none
    &none   &kp Z   &kp X    &kp C       &kp D          &kp V     &none       &none   &none   &none   &none  &none   &kp K     &kp H      &comma_morph &dot_morph  &under_morph &none
-   &none   &none   &none    &kp TAB     &kp RET               &lt_spc 3 0 &sl LAYER_Symbols   &none   &none    SMART_NUM  &smart_shft  &kp BSPC  &none      &none        &none       &none
+   &none   &none   &none    &kp TAB     &kp RET               &lt_spc 3 0 &sl LAYER_Symbols   &none   &none    SMART_NUM  SMART_SHIFT  &kp BSPC  &none      &none        &none       &none
             >;
         };
         layer_Symbols {
