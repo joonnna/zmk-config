@@ -363,7 +363,7 @@ SIMPLE_MORPH(fnut_morph, SFT, &kp DQT, &kp SQT)
   &none          &none           &none           &none           &none                                                                      &none      &none      &none      &none   &none
   &none          &none           &none           &none           &none   &none                                                   &none      &none      &none      &none      &none   &none
   &none          &none           &none           &none           &none   &none                                                   &none      &kp A      &none      &none      &none   &none
-  &none          &none           &kp LA(N1)  &kp LA(N2)  &kp LA(N3)  &none                                           &none      &kp LA(LA(N1)) &kp LA(LA(N2)) &kp LA(LA(N3)) &none   &none
+  &none          &none           &kp LA(N1)  &kp LA(N2)  &kp LA(N3)  &none                                           &none      &kp LS(LA(N1)) &kp LS(LA(N2)) &kp LS(LA(N3)) &none   &none
   &none          &none           &none           &none           &none   &none   &none   &none   &none   &none   &none   &none   &none      &none      &none      &none      &none   &none
   &none          &none           &none           &none           &none           &none   &none   &none   &none   &none   &none              &none      &none      &none      &none   &none
             >;
