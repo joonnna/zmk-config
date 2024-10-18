@@ -269,17 +269,11 @@ ZMK_MACRO(spc_macro,
     bindings = <&kp K_CANCEL &sl LAYER_Move>;
 )
 
-// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: move layer
-#define SMART_SHIFT &smart_shft LAYER_Move 0
-ZMK_HOLD_TAP(smart_shft,
-    flavor = "balanced";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    bindings = <&mo>, <&shft_dance>;
-)
-ZMK_TAP_DANCE(shft_dance,
-    tapping-term-ms = <200>;
-    bindings = <&sk LSHFT>, <&caps_word>;  // reverse this for sticky-num on single tap
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+#define SMART_SHIFT &smart_shft
+ZMK_MOD_MORPH(smart_shft,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
 )
 
 // tap: num-word | double-tap: sticky num-layer | hold: num-layer
